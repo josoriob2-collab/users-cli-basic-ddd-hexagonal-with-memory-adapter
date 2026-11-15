@@ -1,11 +1,12 @@
 package com.jcaa.udec;
 
-import com.jcaa.udec.collections.adapter.persistence.memory.ActualizarRadioAdapter;
-import com.jcaa.udec.collections.adapter.persistence.memory.EliminarRadioAdapter;
-import com.jcaa.udec.collections.adapter.persistence.memory.GuardarRadioAdapter;
 import com.jcaa.udec.collections.adapter.persistence.memory.GuardarUsuarioAdapter;
-import com.jcaa.udec.collections.adapter.persistence.memory.ObtenerRadiosAdapter;
 import com.jcaa.udec.collections.adapter.persistence.memory.ObtenerUsuariosAdapter;
+import com.jcaa.udec.collections.adapter.persistence.postgres.ActualizarRadioPostgresAdapter;
+import com.jcaa.udec.collections.adapter.persistence.postgres.ConexionPostgres;
+import com.jcaa.udec.collections.adapter.persistence.postgres.EliminarRadioPostgresAdapter;
+import com.jcaa.udec.collections.adapter.persistence.postgres.GuardarRadioPostgresAdapter;
+import com.jcaa.udec.collections.adapter.persistence.postgres.ObtenerRadiosPostgresAdapter;
 import com.jcaa.udec.collections.application.service.ActualizarRadioService;
 import com.jcaa.udec.collections.application.service.AgregarRadioService;
 import com.jcaa.udec.collections.application.service.AgregarUsuarioService;
@@ -39,10 +40,11 @@ public class  Main {
         UsuarioControlador usuarioControlador =
                 new UsuarioControladorImpl(agregarUsuarioUseCase, obtenerUsuarioUseCase);
 
-        GuardarRadioPort guardarRadioPort = new GuardarRadioAdapter();
-        ObtenerRadiosPort obtenerRadiosPort = new ObtenerRadiosAdapter();
-        ActualizarRadioPort actualizarRadioPort = new ActualizarRadioAdapter();
-        EliminarRadioPort eliminarRadioPort = new EliminarRadioAdapter();
+        ConexionPostgres conexionPostgres = ConexionPostgres.desdeEntorno();
+        GuardarRadioPort guardarRadioPort = new GuardarRadioPostgresAdapter(conexionPostgres);
+        ObtenerRadiosPort obtenerRadiosPort = new ObtenerRadiosPostgresAdapter(conexionPostgres);
+        ActualizarRadioPort actualizarRadioPort = new ActualizarRadioPostgresAdapter(conexionPostgres);
+        EliminarRadioPort eliminarRadioPort = new EliminarRadioPostgresAdapter(conexionPostgres);
         AgregarRadioUseCase agregarRadioUseCase = new AgregarRadioService(guardarRadioPort);
         ObtenerRadioUseCase obtenerRadioUseCase = new ObtenerRadiosService(obtenerRadiosPort);
         ActualizarRadioUseCase actualizarRadioUseCase = new ActualizarRadioService(actualizarRadioPort);
