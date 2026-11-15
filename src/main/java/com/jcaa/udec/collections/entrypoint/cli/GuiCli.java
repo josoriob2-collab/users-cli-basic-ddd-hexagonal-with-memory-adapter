@@ -2,6 +2,7 @@ package com.jcaa.udec.collections.entrypoint.cli;
 
 import com.jcaa.udec.collections.domain.core.exception.RadioInvalidaException;
 import com.jcaa.udec.collections.domain.core.exception.RadioNoExisteException;
+import com.jcaa.udec.collections.domain.core.exception.RadioPersistenciaException;
 import com.jcaa.udec.collections.domain.core.exception.RadioYaExisteException;
 import com.jcaa.udec.collections.domain.core.exception.UsuarioInvalidoException;
 import com.jcaa.udec.collections.domain.core.exception.UsuarioNoExisteException;
@@ -129,7 +130,8 @@ public class GuiCli {
                     | UsuarioYaExisteException
                     | RadioInvalidaException
                     | RadioNoExisteException
-                    | RadioYaExisteException exception) {
+                    | RadioYaExisteException
+                    | RadioPersistenciaException exception) {
                 System.out.println(MENSAJE_ERROR + exception.getMessage());
             }
         }
